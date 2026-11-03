@@ -1,0 +1,182 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+}
+
+.screen {
+    display: none;
+    min-height: 100vh;
+    width: 100%;
+}
+.screen.active {
+    display: block;
+}
+
+/* Splash Screen */
+#splash-screen {
+    background: #0288d1;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.splash-content .logo { font-size: 80px; }
+
+/* Form Login */
+#login-screen {
+    padding: 40px 20px;
+    background: white;
+}
+.login-header { margin-bottom: 30px; text-align: center; }
+.login-header h2 { color: #0288d1; }
+
+/* Input umum (login & buku tamu) */
+.input-group { margin-bottom: 20px; }
+.input-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: #0288d1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Dashboard & Style JKN */
+.user-header {
+    background: #0288d1;
+    color: white;
+    padding: 20px 15px 50px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.user-info { display: flex; align-items: center; gap: 12px; }
+.user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+.badge {
+    background: #005b9f;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+.btn-logout {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Kartu JKN Style */
+.card-membership {
+    background: linear-gradient(135deg, #0077c2, #004ba0);
+    color: white;
+    margin: -30px 15px 20px 15px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+.card-title { font-size: 12px; opacity: 0.8; margin-bottom: 10px; }
+
+/* Grid Menu JKN Style */
+.menu-container { padding: 0 15px; }
+.section-title { font-size: 14px; font-weight: bold; color: #666; margin-bottom: 12px; }
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+.menu-item {
+    background: white;
+    padding: 15px 10px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+.menu-item:active { background: #e0f7fa; }
+.menu-icon { font-size: 28px; }
+.menu-item span { font-size: 12px; color: #333; font-weight: 500; }
+
+/* Buku Tamu */
+#guest-screen {
+    padding-bottom: 30px;
+}
+.guest-topbar {
+    background: #0288d1;
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.guest-topbar h3 { font-size: 18px; }
+.btn-back {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.guest-container { padding: 15px; max-width: 500px; margin: 0 auto; }
+.guest-staff { font-size: 13px; color: #555; margin-bottom: 15px; }
+
+.photo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.photo-box {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #0288d1;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.btn-secondary {
+    padding: 8px 16px;
+    background: #e5e7eb;
+    color: #374151;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+}

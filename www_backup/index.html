@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <title>Pustaka Mobile</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Supabase JS Client via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <!-- 1. SPLASH SCREEN -->
+    <div id="splash-screen" class="screen active">
+        <div class="splash-content">
+            <div class="logo">📚</div>
+            <h2>Pustaka Mobile</h2>
+            <p>Layanan Perpustakaan Digital</p>
+        </div>
+    </div>
+
+    <!-- 2. HALAMAN LOGIN -->
+    <div id="login-screen" class="screen">
+        <div class="login-header">
+            <h2>Selamat Datang</h2>
+            <p>Masuk ke Akun Perpustakaan Anda</p>
+        </div>
+        <form id="login-form">
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="login-email" placeholder="email@contoh.com" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="login-password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn-primary">MASUK</button>
+        </form>
+    </div>
+
+    <!-- 3. HALAMAN DASHBOARD / MENU (STYLE JKN) -->
+    <div id="main-screen" class="screen">
+        <!-- Header Profil -->
+        <div class="user-header">
+            <div class="user-info">
+                <img id="user-avatar" src="https://via.placeholder.com/60" alt="Foto Profil">
+                <div>
+                    <h3 id="user-name">Nama Pengguna</h3>
+                    <span id="user-role" class="badge">Role</span>
+                </div>
+            </div>
+            <button id="btn-logout" class="btn-logout">Keluar</button>
+        </div>
+
+        <!-- Card Kartu Anggota (Gaya JKN) -->
+        <div class="card-membership">
+            <p class="card-title">KARTU ANGGOTA DIGITAL</p>
+            <h3 id="card-user-name">-</h3>
+            <p id="card-user-id">ID: -</p>
+        </div>
+
+        <!-- Grid Menu Utama (Gaya JKN) -->
+        <div class="menu-container">
+            <p class="section-title">Menu Utama</p>
+            <div class="menu-grid">
+                <div class="menu-item" onclick="takePhotoAndUpload()">
+                    <div class="menu-icon">📷</div>
+                    <span>Update Foto</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-icon">📖</div>
+                    <span>Katalog Buku</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-icon">🔄</div>
+                    <span>Peminjaman</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-icon">🕒</div>
+                    <span>Riwayat</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-icon">👤</div>
+                    <span>Profil Saya</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-icon">ℹ️</div>
+                    <span>Info Pustaka</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="cordova.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
