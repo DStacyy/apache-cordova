@@ -1,98 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="dark">
     <title>Pustaka Mobile</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- Supabase JS Client via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-    <!-- 1. SPLASH SCREEN -->
+    <!-- 1. SPLASH -->
     <div id="splash-screen" class="screen active">
         <div class="splash-content">
-            <div class="logo">📚</div>
-            <h2>Pustaka Mobile</h2>
-            <p>Layanan Perpustakaan Digital</p>
+            <div class="splash-logo">📚</div>
+            <h1>Pustaka</h1>
+            <p>Perpustakaan di genggamanmu</p>
         </div>
     </div>
 
-    <!-- 2. HALAMAN LOGIN -->
+    <!-- 2. LOGIN -->
     <div id="login-screen" class="screen">
-        <div class="login-header">
-            <h2>Selamat Datang</h2>
-            <p>Masuk ke Akun Perpustakaan Anda</p>
+        <div class="login-wrap">
+            <div class="login-header">
+                <div class="splash-logo small">📚</div>
+                <h2>Selamat Datang</h2>
+                <p>Masuk ke akun perpustakaanmu</p>
+            </div>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="email@contoh.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-primary">MASUK</button>
+            </form>
         </div>
-        <form id="login-form">
-            <div class="input-group">
-                <label>Email</label>
-                <input type="email" id="login-email" placeholder="email@contoh.com" required>
-            </div>
-            <div class="input-group">
-                <label>Password</label>
-                <input type="password" id="login-password" placeholder="••••••••" required>
-            </div>
-            <button type="submit" class="btn-primary">MASUK</button>
-        </form>
     </div>
 
-    <!-- 3. DASHBOARD / MENU -->
+    <!-- 3. MAIN (berisi 4 tab + navigasi bawah) -->
     <div id="main-screen" class="screen">
-        <div class="user-header">
-            <div class="user-info">
-                <img id="user-avatar" src="img/logo.png" alt="Foto Profil">
-                <div>
-                    <h3 id="user-name">Nama Pengguna</h3>
+
+        <!-- TAB: BERANDA -->
+        <section id="tab-home" class="tab-panel active">
+            <header class="topbar">
+                <div class="user-info">
+                    <img id="user-avatar" src="img/logo.png" alt="Foto">
+                    <div>
+                        <p class="greeting">Halo 👋</p>
+                        <h3 id="user-name">Nama Pengguna</h3>
+                    </div>
+                </div>
+                <button id="btn-logout" class="btn-icon" aria-label="Keluar">⎋</button>
+            </header>
+
+            <div class="membership-card">
+                <div class="membership-top">
+                    <span class="chip">KARTU ANGGOTA</span>
                     <span id="user-role" class="badge">Role</span>
                 </div>
+                <h3 id="card-user-name">-</h3>
+                <p id="card-user-id" class="muted">ID: -</p>
             </div>
-            <button id="btn-logout" class="btn-logout">Keluar</button>
-        </div>
 
-        <div class="card-membership">
-            <p class="card-title">KARTU ANGGOTA DIGITAL</p>
-            <h3 id="card-user-name">-</h3>
-            <p id="card-user-id">ID: -</p>
-        </div>
-
-        <div class="menu-container">
-            <p class="section-title">Menu Utama</p>
-            <div class="menu-grid">
-                <div class="menu-item" onclick="openGuestForm()">
-                    <div class="menu-icon">🧾</div>
-                    <span>Buku Tamu</span>
+            <div class="stat-row">
+                <div class="stat-card">
+                    <span class="stat-label">Sedang dipinjam</span>
+                    <strong id="stat-active">0</strong>
+                    <span class="stat-sub">buku</span>
                 </div>
-                <div class="menu-item" onclick="takePhotoAndUpload()">
-                    <div class="menu-icon">📷</div>
-                    <span>Update Foto</span>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-icon">📖</div>
-                    <span>Katalog Buku</span>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-icon">🔄</div>
-                    <span>Peminjaman</span>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-icon">🕒</div>
-                    <span>Riwayat</span>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-icon">👤</div>
-                    <span>Profil Saya</span>
-                </div>
-                <div class="menu-item">
-                    <div class="menu-icon">ℹ️</div>
-                    <span>Info Pustaka</span>
+                <div class="stat-card accent">
+                    <span class="stat-label">Jatuh tempo</span>
+                    <strong id="stat-due">-</strong>
+                    <span id="stat-due-sub" class="stat-sub">tidak ada</span>
                 </div>
             </div>
-        </div>
+
+            <h4 class="section-title">Menu cepat</h4>
+            <div class="quick-grid">
+                <button class="quick-item" onclick="switchTab('catalog')">
+                    <span class="q-icon">📖</span><span>Katalog</span>
+                </button>
+                <button class="quick-item" onclick="switchTab('loans')">
+                    <span class="q-icon">🔄</span><span>Pinjaman</span>
+                </button>
+                <button class="quick-item petugas-only" onclick="openGuestForm()">
+                    <span class="q-icon">🧾</span><span>Buku Tamu</span>
+                </button>
+                <button class="quick-item" onclick="takePhotoAndUpload()">
+                    <span class="q-icon">📷</span><span>Foto</span>
+                </button>
+            </div>
+
+            <div class="section-head">
+                <h4 class="section-title">Sedang dipinjam</h4>
+                <button class="link-btn" onclick="switchTab('loans')">Lihat semua</button>
+            </div>
+            <div id="home-loans" class="loan-list"></div>
+        </section>
+
+        <!-- TAB: KATALOG -->
+        <section id="tab-catalog" class="tab-panel">
+            <h2 class="page-title">Katalog</h2>
+            <input id="search-book" class="search-input" type="search" placeholder="Cari judul atau penulis..." oninput="renderCatalog()">
+            <div id="category-chips" class="chip-row"></div>
+            <div id="catalog-grid" class="book-grid"></div>
+        </section>
+
+        <!-- TAB: PINJAMAN -->
+        <section id="tab-loans" class="tab-panel">
+            <h2 class="page-title">Pinjaman Aktif</h2>
+            <div id="loan-list" class="loan-list"></div>
+        </section>
+
+        <!-- TAB: PROFIL -->
+        <section id="tab-profile" class="tab-panel">
+            <div class="profile-hero">
+                <img id="profile-avatar" class="avatar-xl" src="img/logo.png" alt="Foto Profil">
+                <h2 id="profile-name">-</h2>
+                <span id="profile-role" class="badge">Role</span>
+            </div>
+            <div class="info-list">
+                <div class="info-row"><span>Telepon</span><span id="profile-phone">-</span></div>
+                <div class="info-row"><span>Alamat</span><span id="profile-address">-</span></div>
+            </div>
+            <button class="btn-outline" onclick="takePhotoAndUpload()">📷 Ubah Foto Profil</button>
+            <button class="btn-outline" onclick="handleLogout()">Keluar</button>
+        </section>
+
+        <!-- NAVIGASI BAWAH -->
+        <nav class="bottom-nav">
+            <button class="active" data-tab="home" onclick="switchTab('home')">
+                <span class="nav-icon">🏠</span><span>Beranda</span>
+            </button>
+            <button data-tab="catalog" onclick="switchTab('catalog')">
+                <span class="nav-icon">📖</span><span>Katalog</span>
+            </button>
+            <button data-tab="loans" onclick="switchTab('loans')">
+                <span class="nav-icon">🔄</span><span>Pinjaman</span>
+            </button>
+            <button data-tab="profile" onclick="switchTab('profile')">
+                <span class="nav-icon">👤</span><span>Profil</span>
+            </button>
+        </nav>
     </div>
 
-    <!-- 4. BUKU TAMU (FORM CHECK-IN) -->
+    <!-- 4. BUKU TAMU -->
     <div id="guest-screen" class="screen">
         <div class="guest-topbar">
             <button type="button" class="btn-back" onclick="backToMain()">← Kembali</button>
@@ -103,7 +159,6 @@
             <p class="guest-staff">Petugas Jaga: <span id="staff-name">-</span></p>
 
             <form id="guest-form">
-                <!-- Foto Tamu -->
                 <div class="photo-section">
                     <div class="photo-box" onclick="takeGuestPhoto()">
                         <img id="photo-preview" src="img/logo.png" alt="Foto Tamu">
@@ -111,7 +166,6 @@
                     <button type="button" class="btn-secondary" onclick="takeGuestPhoto()">📷 Ambil Foto Tamu</button>
                 </div>
 
-                <!-- Identitas Tamu -->
                 <div class="input-group">
                     <label>Nama Lengkap Tamu *</label>
                     <input type="text" id="guest-name" placeholder="Nama Tamu" required>
@@ -124,8 +178,6 @@
                     <label>Instansi / Perusahaan</label>
                     <input type="text" id="guest-company" placeholder="PT / Instansi asal">
                 </div>
-
-                <!-- Dropdown dari database -->
                 <div class="input-group">
                     <label>Kategori Tamu *</label>
                     <select id="select-category" required></select>
@@ -143,19 +195,16 @@
                     <select id="select-host" required></select>
                 </div>
                 <div class="input-group">
-                    <label>Nomor Visitor Badge (Optional)</label>
+                    <label>Nomor Visitor Badge (Opsional)</label>
                     <select id="select-badge">
                         <option value="">-- Tanpa Badge --</option>
                     </select>
                 </div>
-
-                <!-- Barang Bawaan / Titipan -->
                 <div class="input-group">
-                    <label>Barang Titipan / Bawaan (Optional)</label>
+                    <label>Barang Titipan / Bawaan (Opsional)</label>
                     <input type="text" id="item-name" placeholder="Contoh: Laptop / Tas">
-                    <input type="text" id="locker-number" placeholder="Nomor Loker Titipan" style="margin-top: 5px;">
+                    <input type="text" id="locker-number" placeholder="Nomor Loker Titipan" style="margin-top: 8px;">
                 </div>
-
                 <div class="input-group">
                     <label>Catatan Tambahan</label>
                     <textarea id="guest-notes" rows="3" placeholder="Keterangan tambahan jika ada..."></textarea>
